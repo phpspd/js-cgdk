@@ -28,6 +28,8 @@ module.exports.connect = function connect(host, port, onConnect) {
     var weatherByCellXY = [];
     var previousPlayerById = {};
     var previousFacilityById = {};
+    var _cachedBoolFlag = false;
+    var _cachedBoolValue = false;
 
     var client = net.connect(port, host, function connectHandler() {
         // 'connect' listener
@@ -218,9 +220,14 @@ module.exports.connect = function connect(host, port, onConnect) {
         });
     }
     function readBool(callback) {
-        readSequence('bool', function onBoolReaded(a) {
-            callback(a[0]);
-        });
+        if (_cachedBoolFlag) {
+            _cachedBoolFlag = false;
+            callback(_cachedBoolValue);
+        } else {
+            readSequence('bool', function onBoolReaded(a) {
+                callback(a[0]);
+            });
+        }
     }
     function readInt(callback) {
         readSequence('int', function onIntReaded(a) {
@@ -404,7 +411,15 @@ module.exports.connect = function connect(host, port, onConnect) {
                 process.exit(0);
             } else {
                 ensureMessageType(messageType, MessageType.PlayerContext);
-                readPlayerContext(callback);
+                readBool(function readPlayerContextMessagef2(val) {
+                    if (!val) {
+                        callback(null);
+                    } else {
+                        _cachedBoolFlag = true;
+                        _cachedBoolValue = true;
+                        readPlayerContext(callback);
+                    }
+                });
             }
         });
     };
