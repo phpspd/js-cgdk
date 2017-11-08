@@ -2,9 +2,6 @@
  * Created by Quake on 07.11.2017.
  */
 const Game = require('./model/game.js');
-//const Wizard = require('./model/wizard.js');
-//const Message = require('./model/message.js');
-//const Status = require('./model/status.js');
 const World = require('./model/world.js');
 const Player = require('./model/player.js');
 const PlayerContext = require('./model/player-context.js');
@@ -13,12 +10,6 @@ const VehicleUpdate = require('./model/vehicle-update.js');
 const Facility = require('./model/facility.js');
 const TerrainType = require('./model/terrain-type.js');
 const WeatherType = require('./model/weather-type.js');
-//const Minion = require('./model/minion.js');
-//const Projectile = require('./model/projectile.js');
-//const Bonus = require('./model/bonus.js');
-//const Building = require('./model/building.js');
-//const Tree = require('./model/tree.js');
-//const SkillType = require('./model/skill-type.js');
 
 var clientPaused;
 
