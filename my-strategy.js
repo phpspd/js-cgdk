@@ -180,8 +180,6 @@ module.exports.getInstance = function () {
                         move.setAction(ActionType.Move);
                         move.setX(targetX - x);
                         move.setY(targetY - y);
-
-                        //return this;
                     });
                 }
             }
